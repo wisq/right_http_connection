@@ -95,6 +95,7 @@ module Net
       delete 'Transfer-Encoding'
       supply_default_content_type
       write_header(sock, ver, path) unless send_only == :body
+      wait_for_continue sock, ver if sock.continue_timeout
       sock.write(body)              unless send_only == :header
     end
 
@@ -105,6 +106,7 @@ module Net
       end
       supply_default_content_type
       write_header(sock, ver, path) unless send_only == :body
+      wait_for_continue sock, ver if sock.continue_timeout
       unless send_only == :header
         if chunked?
           while s = f.read(@@local_read_size)
