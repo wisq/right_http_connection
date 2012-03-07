@@ -29,7 +29,6 @@ require "logger"
 $:.unshift(File.dirname(__FILE__))
 require 'version'
 require 'support'
-require "net_fix"
 
 module Rightscale
 
